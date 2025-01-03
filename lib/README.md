@@ -1,14 +1,15 @@
 # Librería de Signos Vitales
 
-Librería para entrenar un modelo de aprendizaje automático que clasifica el riesgo basado en signos vitales. Usa un modelo de **Random Forest** para clasificar entre **"Low Risk"** y **"High Risk"**, y permite realizar predicciones desde un contenedor Docker.
+## Descripción
 
----
+La librería está diseñada para gestionar modelos de aprendizaje automático (Machine Learning) enfocados en clasificar riesgos basados en signos vitales. Proporciona funcionalidades completas para:
 
-## **Características**
-- Entrenamiento del modelo basado en datos de signos vitales.
-- Guarda los modelos entrenados en formato `.pkl` para su reutilización.
-- Proporciona métodos para realizar predicciones con datos de entrada personalizados.
-- Funciona dentro de un contenedor Docker, con volúmenes mapeados para guardar los modelos entrenados.
+- **Entrenar:** Preprocesar datos crudos, entrenar un modelo y devolver métricas de evaluación.
+- **Guardar:** Almacenar modelos entrenados en archivos binarios con soporte para versionado.
+- **Cargar:** Recuperar modelos entrenados desde archivos específicos.
+- **Testear:** Realizar predicciones utilizando datos preprocesados.
+
+Esta librería se implementa en Python y se distribuye como un paquete instalable que puede integrarse en sistemas más amplios, como APIs o aplicaciones frontend.
 
 ---
 
@@ -23,17 +24,24 @@ Librería para entrenar un modelo de aprendizaje automático que clasifica el ri
 
 ```plaintext
 lib/
-├── src/
-│   ├── __init__.py                # Inicialización del paquete
-│   ├── train.py                   # Entrenamiento del modelo
-│   ├── predict.py                 # Predicciones
-│   ├── utils.py                   # Funciones auxiliares
-├── models/                        # Carpeta donde se guardarán los modelos PKL
-├── data/
-│   ├── raw/                       # Carpeta para datos sin procesar
+├── data/                              # Carpeta para datos
+│   ├── raw/                           # Datos sin procesar
 │   │   └── human_vital_signs_dataset_2024.csv
-├── tests/                         # Pruebas unitarias
-├── setup.py                       # Configuración de la librería
-├── requirements.txt               # Dependencias del proyecto
-├── Dockerfile                     # Dockerfile para construir el entorno
-└── README.md                      # Documentación
+│   ├── processed/                     # Datos preprocesados (opcional)
+│       └── training_data.csv
+├── models/                            # Carpeta para guardar modelos entrenados
+│   ├── risk_model_v1.pkl              # Modelo entrenado (ejemplo)
+│   ├── risk_model_test.pkl            # Modelo de prueba
+├── src/                               # Código fuente de la librería
+│   ├── __init__.py                    # Inicialización del paquete
+│   ├── model_manager.py               # Clase principal de la librería
+│   ├── preprocessing.py               # Métodos auxiliares para preprocesamiento
+├── tests/                             # Pruebas unitarias
+│   ├── __init__.py                    # Inicialización del módulo de pruebas
+│   ├── test_model_manager.py          # Pruebas para ModelManager
+│   ├── test_preprocessing.py          # Pruebas para el módulo de preprocesamiento
+├── Dockerfile                         # Dockerfile para ejecutar pruebas
+├── docker-compose.yml                 # Orquestación de servicios para pruebas
+├── requirements.txt                   # Dependencias del proyecto
+├── setup.py                           # Configuración del paquete
+└── README.md                          # Documentación del proyecto
